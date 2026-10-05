@@ -1,0 +1,6 @@
+name: astrbot_plugin_group_verify # 插件唯一识别名，以 astrbot_plugin_ 前缀开头
+display_name: 入群验证 # 用于展示的名字
+desc: 入群验证插件，新人入群需在规定时间内发送验证码，支持自定义发送延迟、答题时限、超时处理（踢出/禁言）与每群单独配置。
+version: v1.0.0 # 插件版本号
+author: AlancoSage # 作者
+repo: https://github.com/AlancoSage/astrbot_plugin_group_verify # 插件的仓库地址

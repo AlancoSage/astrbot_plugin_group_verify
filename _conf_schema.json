@@ -1,0 +1,104 @@
+{
+  "enabled": {
+    "description": "是否启用入群验证",
+    "type": "bool",
+    "default": true
+  },
+  "send_delay_sec": {
+    "description": "全局默认验证提示发送延迟（秒）。检测到入群后等待 N 秒再发送验证提示，0 表示立即发送。当某个群没有单独设置延迟时使用",
+    "type": "int",
+    "default": 0
+  },
+  "answer_timeout_sec": {
+    "description": "全局默认答题时限（秒）。发送验证提示后，超过该时间未验证通过将执行超时处理，0 表示永不超时",
+    "type": "int",
+    "default": 300
+  },
+  "kick_delay_sec": {
+    "description": "全局默认超时处理延迟（秒）。超时后等待 N 秒再执行踢出/禁言，0 表示立即执行。可用于给新人最后一点缓冲时间",
+    "type": "int",
+    "default": 0
+  },
+  "code_length": {
+    "description": "验证码位数（4-8 位数字），仅数字验证码模式生效",
+    "type": "int",
+    "default": 4
+  },
+  "verify_mode": {
+    "description": "验证方式：数字验证码 / 100以内加减法 / 图片验证码（带噪点干扰线，看图输数字）",
+    "type": "string",
+    "default": "code",
+    "options": ["code", "math", "image"],
+    "labels": ["数字验证码", "100以内加减法", "图片验证码"]
+  },
+  "timeout_action": {
+    "description": "超时处理动作：无操作 / 移出群聊 / 禁言",
+    "type": "string",
+    "default": "kick",
+    "options": ["none", "kick", "mute"],
+    "labels": ["无操作", "移出群聊", "禁言"]
+  },
+  "mute_duration_sec": {
+    "description": "禁言时长（秒），超时处理为「禁言」时生效",
+    "type": "int",
+    "default": 600
+  },
+  "fail_hint": {
+    "description": "超时处理提示语，支持占位符：{at} AT新人，{name} 新人昵称。留空不发送提示",
+    "type": "text",
+    "default": "{at} 验证超时，未能通过入群验证。"
+  },
+  "pass_hint": {
+    "description": "验证通过提示语，支持占位符：{at} AT新人，{name} 新人昵称。留空不发送提示",
+    "type": "text",
+    "default": "{at} 验证通过，欢迎加入本群！"
+  },
+  "group_rules": {
+    "description": "每群单独验证规则，点击添加条目为每个群配置。设置后优先于全局配置",
+    "type": "template_list",
+    "default": [],
+    "templates": {
+      "group_rule": {
+        "name": "群验证规则",
+        "hint": "为指定群单独配置验证规则",
+        "items": {
+          "group_id": {
+            "description": "群号",
+            "type": "string",
+            "hint": "要单独配置的群号"
+          },
+          "enabled": {
+            "description": "该群是否启用验证",
+            "type": "bool",
+            "default": true
+          },
+          "send_delay_sec": {
+            "description": "验证提示发送延迟（秒，可选）",
+            "type": "int",
+            "hint": "入群后等待 N 秒再发送验证提示，0 或留空时使用全局默认延迟"
+          },
+          "answer_timeout_sec": {
+            "description": "答题时限（秒，可选）",
+            "type": "int",
+            "hint": "0 或留空时使用全局默认时限"
+          },
+          "kick_delay_sec": {
+            "description": "超时处理延迟（秒，可选）",
+            "type": "int",
+            "hint": "0 或留空时使用全局默认延迟"
+          }
+        }
+      }
+    }
+  },
+  "blacklist": {
+    "description": "群黑名单，填群号。黑名单内的群不启用验证",
+    "type": "list",
+    "default": []
+  },
+  "whitelist": {
+    "description": "群白名单，填群号。白名单与黑名单可同时生效：白名单非空时仅白名单内的群启用验证，黑名单始终排除",
+    "type": "list",
+    "default": []
+  }
+}
